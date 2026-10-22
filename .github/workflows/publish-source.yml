@@ -1,0 +1,70 @@
+name: Publish sanitized Music Fleet source
+
+on:
+  push:
+    paths:
+      - '.github/workflows/publish-source.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Music Fleet
+        uses: actions/checkout@v4
+
+      - name: Verify and extract published archive
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          import hashlib
+          import pathlib
+          import stat
+          import zipfile
+
+          archive = pathlib.Path('Music-Fleet-v8.5.13-PUBLIC-SANITIZED.zip')
+          expected = '9cb97fb140ff53ae8ffbf7d47d9dddefcfddd3fb8029d3722ca022d02382f6a9'
+          if not archive.is_file():
+              raise SystemExit('Expected sanitized ZIP archive not found.')
+          actual = hashlib.sha256(archive.read_bytes()).hexdigest()
+          if actual != expected:
+              raise SystemExit('Archive checksum mismatch; aborting.')
+
+          root = pathlib.Path.cwd().resolve()
+          with zipfile.ZipFile(archive) as z:
+              if len(z.infolist()) != 181:
+                  raise SystemExit('Unexpected archive entry count.')
+              for info in z.infolist():
+                  name = info.filename
+                  path = pathlib.PurePosixPath(name)
+                  if path.is_absolute() or '..' in path.parts or not name or '\\' in name:
+                      raise SystemExit('Unsafe ZIP entry: ' + repr(name))
+                  if path.parts[0] == '.git' or name == '.github/workflows/publish-source.yml':
+                      raise SystemExit('Unsafe ZIP target: ' + repr(name))
+                  mode = info.external_attr >> 16
+                  if stat.S_ISLNK(mode):
+                      raise SystemExit('Symbolic link not allowed: ' + repr(name))
+                  target = (root / name).resolve()
+                  if not target.is_relative_to(root):
+                      raise SystemExit('Unsafe extraction target: ' + repr(name))
+              z.extractall(root)
+          archive.unlink()
+          PY
+
+      - name: Commit extracted files
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -A
+          if git diff --cached --quiet; then
+            echo 'Nothing to commit.'
+            exit 0
+          fi
+          git commit -m 'Publish sanitized Music Fleet v8.5.13 source'
+          git push
