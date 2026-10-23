@@ -1,0 +1,218 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="referrer" content="no-referrer">
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#07090d">
+  <title>Music By ! A</title>
+  <link rel="stylesheet" href="/app.css">
+  <link rel="stylesheet" href="/platform.css">
+  <link rel="stylesheet" href="/mobile.css">
+  <link rel="stylesheet" href="/refinements.css">
+</head>
+<body>
+  <main class="app-shell">
+  <div class="ambient" aria-hidden="true">
+    <i class="orb o1"></i><i class="orb o2"></i><i class="orb o3"></i><i class="orb o4"></i><i class="orb o5"></i><i class="orb o6"></i>
+    <span class="ambient-vignette"></span><span class="ambient-grain"></span>
+  </div>
+
+    <header class="topbar">
+      <button id="mobileNavToggle" class="icon-button" aria-label="Open navigation"><svg viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16"/></svg></button>
+      <div class="navigation-history"><button id="navBack" class="icon-button" aria-label="Go back"><svg viewBox="0 0 24 24"><path d="m14 6-6 6 6 6"/></svg></button><button id="navForward" class="icon-button" aria-label="Go forward"><svg viewBox="0 0 24 24"><path d="m10 6 6 6-6 6"/></svg></button></div>
+      <form id="searchForm" class="global-search" role="search">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.8" cy="10.8" r="6.8"/><path d="m16 16 5 5"/></svg>
+        <input id="searchInput" type="search" placeholder="Search songs, albums, artists" autocomplete="off" spellcheck="false" aria-label="Search music">
+        <kbd>/</kbd>
+      </form>
+      <nav class="view-pills" aria-label="Player views" hidden>
+        <button class="view-pill active" data-view="player">Player</button>
+        <button class="view-pill" data-view="search">Search</button>
+        <button class="view-pill" data-view="lyrics">Lyrics</button>
+        <button class="view-pill" data-view="library">Library</button>
+        <button class="view-pill" data-view="playlists">Playlists</button>
+        <button class="view-pill" data-view="history">History</button>
+        <button class="view-pill" data-view="discover">Discover</button>
+        <button class="view-pill" data-view="queue">Queue</button>
+      </nav>
+      <button id="moreToggle" class="icon-button top-more" aria-label="More options" title="More">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="5" cy="12" r="1.6"/><circle cx="12" cy="12" r="1.6"/><circle cx="19" cy="12" r="1.6"/></svg>
+      </button>
+      <button id="profileToggle" class="icon-button profile-toggle" aria-label="Account and settings"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.5"/><path d="M5 21v-2a7 7 0 0 1 14 0v2"/></svg></button>
+    </header>
+
+    <aside id="platformNav" class="sidebar" aria-label="Music navigation">
+      <a class="brand" href="/player" aria-label="! A music home"><svg class="brand-emblem" viewBox="0 0 88 64" role="img" aria-label="! A"><path d="M8 7h10l-2 31H10zM9 45h9v10H9zM34 55 52 7h12l18 48H70l-4-12H49l-4 12zM52 34h12l-6-17z" fill="currentColor" fill-rule="evenodd"/></svg></a>
+      <nav class="side-group">
+        <button data-nav="home" class="side-link active"><svg viewBox="0 0 24 24"><path d="M9 18V5l11-2v13M9 7l11-2"/><ellipse cx="5.5" cy="18.5" rx="3.5" ry="2.5"/><ellipse cx="16.5" cy="16.5" rx="3.5" ry="2.5"/></svg><span>Music</span></button>
+        <button data-nav="explore" class="side-link"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m15.5 8.5-2 5-5 2 2-5z"/></svg><span>Explore</span></button>
+        <button data-nav="feed" class="side-link"><svg viewBox="0 0 24 24"><path d="M5 17h14l-2-3V9a5 5 0 0 0-10 0v5zM10 21h4"/></svg><span>Feed</span></button>
+        <button data-nav="upload" class="side-link"><svg viewBox="0 0 24 24"><path d="M12 19V4M6 10l6-6 6 6M4 20h16"/></svg><span>Upload</span></button>
+        <button id="collectionToggle" class="side-link" aria-expanded="false" aria-controls="collectionMenu"><svg viewBox="0 0 24 24"><path d="M6 4 3 20M12 4 9 20M18 4l3 16"/></svg><span>Collection</span><svg class="nav-chevron" viewBox="0 0 24 24"><path d="m9 6 6 6-6 6"/></svg></button>
+      </nav>
+      <nav id="collectionMenu" class="collection-menu" aria-label="Collection" hidden>
+        <button data-nav="library" data-kind="mixes">Mixes &amp; Radio</button><button data-nav="library" data-kind="playlists">Playlists</button><button data-nav="library" data-kind="albums">Albums</button><button data-nav="library" data-kind="purchases">Purchases</button><button data-nav="library" data-kind="tracks">Tracks</button><button data-nav="library" data-kind="videos">Videos</button><button data-nav="library" data-kind="artists">Artists</button><button data-nav="library" data-kind="downloads">Downloads</button><button data-nav="library" data-kind="profiles">Profiles</button>
+      </nav>
+      <div class="sidebar-playlists-head"><span>All playlists</span><button id="sidebarCreatePlaylist" class="icon-button" aria-label="Create playlist"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v10M7 12h10"/></svg></button><button id="playlistSort" class="icon-button" aria-label="Sort playlists"><svg viewBox="0 0 24 24"><path d="M5 4v16M2 7l3-3 3 3M13 7h8M13 12h6M13 17h4"/></svg></button></div>
+      <div id="playlistSidebar" class="sidebar-playlists"></div>
+      <div id="importCard" class="transfer-card"><button id="dismissImportCard" class="transfer-close" aria-label="Dismiss import invitation">×</button><strong>Your music, together.</strong><p>Bring your favorite playlists and tracks into your collection.</p><button id="sidebarImport" class="pill-button" aria-label="Import playlist">Import playlist</button></div>
+      <div class="side-foot"><span>! A</span><span>Connected to your listening.</span></div>
+    </aside>
+
+    <div id="navScrim" class="nav-scrim" hidden></div>
+    <form id="mobileSearchBar" class="mobile-search-bar" role="search"><label class="page-search"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="7"/><path d="m16 16 5 5"/></svg><input id="mobileSearchInput" type="search" placeholder="Search" autocomplete="off" aria-label="Search songs, albums, artists and videos"></label></form>
+    <section id="platformContent" class="platform-content" tabindex="-1" aria-label="Music content" aria-busy="true"><div class="platform-loading" role="status">Loading your music…</div></section>
+
+    <section id="stage" class="stage player-view" hidden>
+      <div id="fullPlayerToolbar" class="full-player-toolbar"><button id="closeFullPlayer" class="icon-button" aria-label="Close full player"><svg viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg></button><nav id="fullPlayerTabs" aria-label="Full player content"><button data-player-tab="cover" class="mobile-cover-tab">Artwork</button><button data-player-tab="similar" class="active">Similar tracks</button><button data-player-tab="credits">Credits</button><button data-player-tab="lyrics">Lyrics</button></nav><button id="playerFullscreen" class="icon-button" aria-label="Full screen"><svg viewBox="0 0 24 24"><path d="M8 3H3v5M16 3h5v5M3 16v5h5M21 16v5h-5"/></svg></button></div>
+      <div class="art-zone">
+        <span class="art-halo"></span>
+        <div id="coverMotion" class="cover-motion"><span class="cover-glare"></span><img id="cover" class="cover cover-static" alt="Album artwork" decoding="async"><video id="coverVideo" class="cover cover-video" muted loop playsinline preload="auto" disablepictureinpicture aria-hidden="true"></video></div>
+        <div class="full-player-meta"><strong id="fullPlayerTitle">Nothing playing</strong><button id="mobileSaveTrack" class="icon-button" aria-label="Save current track"><svg viewBox="0 0 24 24"><path d="M12 4v16M4 12h16"/></svg></button><span id="fullPlayerArtist">Your music</span><small id="fullPlayerSource" hidden></small><small id="fullPlayerReason" hidden></small></div>
+      </div>
+
+      <div class="content-zone">
+        <section id="fullPlayerPanels" class="full-player-panels"></section>
+        <section id="lyricsPane" class="lyrics-pane" hidden>
+          <div class="lyrics-heading"><span class="eyebrow">SYNCED LYRICS</span><span id="lyricsSyncBadge" class="sync-badge">LIVE</span></div>
+          <div class="lyrics-window"><div id="lyricsScroller" class="lyrics-scroller"></div></div>
+        </section>
+
+        <section id="collectionPane" class="collection-pane" hidden>
+          <div class="collection-head">
+            <div><span class="eyebrow" id="collectionEyebrow">YOUR MUSIC</span><h2 id="collectionTitle">Library</h2></div>
+            <button id="refreshCollection" class="icon-button subtle" aria-label="Refresh collection" title="Refresh">
+              <svg viewBox="0 0 24 24"><path d="M20 11a8 8 0 1 0-2.3 5.7M20 4v7h-7"/></svg>
+            </button>
+          </div>
+          <div class="collection-actions" aria-label="Collection actions">
+            <button id="playSelected" class="mini-action primary">Play selected</button>
+            <button id="queueSelected" class="mini-action">Queue selected</button>
+            <button id="playAll" class="mini-action">Play all</button>
+            <button id="queueAll" class="mini-action">Queue all</button>
+            <button id="clearSelected" class="mini-action ghost-action">Clear</button>
+            <button id="clearHistory" class="mini-action ghost-action" hidden>Delete history</button>
+            <span id="selectedCount" class="selected-count">0 selected</span>
+          </div>
+          <div id="collectionList" class="track-list"></div>
+        </section>
+
+        <section id="catalogPane" class="catalog-pane" hidden>
+          <div class="catalog-topline"><span class="eyebrow" id="catalogEyebrow">EXPLORE</span><button id="catalogBack" class="mini-action" hidden>← Back</button></div>
+          <h2 id="catalogTitle">Explore music</h2>
+          <p id="catalogDescription">Search your next favorite track.</p>
+          <div id="catalogTabs" class="catalog-tabs" role="tablist" aria-label="Search result type">
+            <button class="catalog-tab active" data-type="tracks">Songs</button><button class="catalog-tab" data-type="albums">Albums</button><button class="catalog-tab" data-type="artists">Artists</button>
+          </div>
+          <div id="catalogActions" class="catalog-actions" hidden></div>
+          <div id="catalogList" class="catalog-list"></div>
+        </section>
+      </div>
+    </section>
+
+    <div id="mobileDock" class="mobile-dock">
+    <section class="transport" aria-label="Playback controls">
+      <div class="transport-meta">
+        <img id="miniCover" alt="" decoding="async">
+        <div class="transport-copy"><strong id="miniTitle">Nothing playing</strong><span id="miniArtist">Your music</span></div>
+        <button class="icon-button compact favorite-control" data-action="favorite" aria-label="Add to favorites" title="Favorite">
+          <svg viewBox="0 0 24 24"><path d="M12 20S4 15 4 9a4 4 0 0 1 7-2.5A4 4 0 0 1 18 9c0 6-6 11-6 11z"/></svg>
+        </button>
+      </div>
+
+      <div class="transport-center">
+        <div class="controls-row">
+          <button class="icon-button transport-icon" data-action="shuffle" aria-label="Shuffle" title="Shuffle"><svg viewBox="0 0 24 24"><path d="M4 7h3c4 0 5 10 10 10h3M17 14l3 3-3 3M4 17h3c1.5 0 2.7-1.3 3.7-3M15 7c1 0 1.7 0 2.3.4L20 10M17 4l3 3-3 3"/></svg></button>
+          <button class="icon-button transport-icon" data-action="previous" aria-label="Previous" title="Previous"><svg viewBox="0 0 24 24"><path d="M7 5v14M18 6l-8 6 8 6z"/></svg></button>
+          <button class="icon-button transport-icon jump-control" data-action="rewind" aria-label="Rewind" title="Rewind"><svg viewBox="0 0 24 24"><path d="M9 7H4V2M4 7c2.2-3.4 6.5-4.5 10-2.8A8 8 0 1 1 4.4 16"/><text x="8" y="15">20</text></svg></button>
+          <button id="playPause" class="play-button" data-action="pause" aria-label="Play or pause" title="Play / Pause"><svg id="pauseIcon" viewBox="0 0 24 24"><path d="M8 5h3v14H8zM13 5h3v14h-3z"/></svg></button>
+          <button class="icon-button transport-icon jump-control" data-action="forward" aria-label="Forward" title="Forward"><svg viewBox="0 0 24 24"><path d="M15 7h5V2M20 7c-2.2-3.4-6.5-4.5-10-2.8A8 8 0 1 0 19.6 16"/><text x="7" y="15">20</text></svg></button>
+          <button class="icon-button transport-icon" data-action="next" aria-label="Next" title="Next"><svg viewBox="0 0 24 24"><path d="M17 5v14M6 6l8 6-8 6z"/></svg></button>
+          <button id="loopButton" class="icon-button transport-icon" data-action="loop" aria-label="Repeat" title="Repeat"><svg viewBox="0 0 24 24"><path d="M17 2l3 3-3 3M20 5H7a4 4 0 0 0-4 4v1M7 22l-3-3 3-3M4 19h13a4 4 0 0 0 4-4v-1"/></svg><span id="loopMode" class="mode-badge"></span></button>
+        </div>
+        <div class="timeline-row">
+          <span id="elapsed">0:00</span>
+          <div id="seek" class="seek" role="slider" aria-label="Seek" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" tabindex="0"><i id="seekFill"></i><b id="seekKnob"></b></div>
+          <span id="duration">0:00</span><span id="sourceQuality" class="source-quality" aria-label="Playback source quality"></span>
+        </div>
+      </div>
+
+      <div class="transport-tools">
+        <button class="icon-button compact" data-view="lyrics" aria-label="Lyrics" title="Lyrics"><svg viewBox="0 0 24 24"><path d="M6 5h12M6 10h8M6 15h10M6 20h6"/></svg></button>
+        <button id="queueToggle" class="icon-button compact" aria-label="Open play queue" title="Play queue"><svg viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h10M18 16l4 3-4 3z"/></svg></button>
+        <label class="volume-control" title="Volume"><svg viewBox="0 0 24 24"><path d="M4 10v4h4l5 4V6L8 10H4M16 9a4 4 0 0 1 0 6M18 6a8 8 0 0 1 0 12"/></svg><input id="volume" type="range" min="1" max="150" value="90"></label>
+        <button id="downloadQuick" class="icon-button compact" aria-label="Download audio" title="Download audio"><svg viewBox="0 0 24 24"><path d="M12 3v12M7 10l5 5 5-5M5 20h14"/></svg></button>
+        <button id="expandPlayer" class="icon-button compact" aria-label="Open full player" title="Open full player"><svg viewBox="0 0 24 24"><path d="m6 15 6-6 6 6"/></svg></button>
+      </div>
+    </section>
+    <div id="mobilePlayingFrom" class="mobile-playing-from"><button id="mobileQueue" class="icon-button" aria-label="Open play queue"><svg viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16"/></svg></button><button id="playingContext" class="playing-context"><small>Playing from</small><span>Your queue</span></button><button id="mobileShare" class="icon-button" aria-label="Share current track"><svg viewBox="0 0 24 24"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="m9 10 6-4M9 14l6 4"/></svg></button><button id="mobileTrackMenu" class="icon-button" aria-label="More options for current track"><svg viewBox="0 0 24 24"><circle cx="5" cy="12" r="1.3"/><circle cx="12" cy="12" r="1.3"/><circle cx="19" cy="12" r="1.3"/></svg></button></div>
+    <nav id="mobileBottomNav" class="mobile-bottom-nav" aria-label="Main navigation">
+      <button data-mobile-nav="home" aria-label="Home"><svg viewBox="0 0 24 24"><path d="M9 18V5l11-2v13M9 7l11-2"/><ellipse cx="5.5" cy="18.5" rx="3.5" ry="2.5"/><ellipse cx="16.5" cy="16.5" rx="3.5" ry="2.5"/></svg></button>
+      <button data-mobile-nav="feed" aria-label="Updates"><svg viewBox="0 0 24 24"><path d="M5 17h14l-2-3V9a5 5 0 0 0-10 0v5zM10 21h4"/></svg></button>
+      <button data-mobile-nav="upload" aria-label="Upload"><svg viewBox="0 0 24 24"><path d="M12 21V4M6 10l6-6 6 6"/></svg></button>
+      <button data-mobile-nav="search" aria-label="Search"><svg viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="7"/><path d="m16 16 5 5"/></svg></button>
+      <button data-mobile-nav="collection" aria-label="Collection"><svg viewBox="0 0 24 24"><path d="M6 4 3 20M12 4v16M18 4v16"/></svg></button>
+    </nav>
+    </div>
+  </main>
+
+  <aside id="queueDrawer" class="queue-drawer" aria-label="Play queue" hidden><div class="queue-head"><h2>Play queue</h2><button id="queueClose" class="icon-button" aria-label="Close play queue"><svg viewBox="0 0 24 24"><path d="m6 6 12 12M18 6 6 18"/></svg></button></div><div id="queueContents" class="queue-contents"></div></aside>
+  <div id="itemMenu" class="item-menu" role="menu" hidden></div>
+  <dialog id="platformDialog" class="platform-dialog"><button id="platformDialogClose" class="icon-button dialog-close" aria-label="Close dialog"><svg viewBox="0 0 24 24"><path d="m6 6 12 12M18 6 6 18"/></svg></button><div id="platformDialogContent"></div></dialog>
+<dialog id="videoDialog" class="video-dialog" aria-label="Music video player"><div id="videoFullscreenRoot" class="video-root">
+    <div class="video-toolbar"><strong id="videoTitle">Music video</strong><span id="videoQuality"></span><nav class="video-tabs" aria-label="Video information"><button data-video-tab="similar" class="active">Similar videos</button><button data-video-tab="credits">Credits</button></nav><button id="videoFullscreen" class="icon-button" aria-label="Full screen video"><svg viewBox="0 0 24 24"><path d="M8 3H3v5M16 3h5v5M3 16v5h5M21 16v5h-5"/></svg></button><button id="videoClose" class="icon-button" aria-label="Close video"><svg viewBox="0 0 24 24"><path d="m6 6 12 12M18 6 6 18"/></svg></button></div>
+    <div class="video-workspace"><div class="video-canvas"><video id="musicVideo" muted playsinline preload="metadata"></video><div class="video-controls"><button id="videoPlayPause" class="icon-button" aria-label="Pause video in Discord"><svg viewBox="0 0 24 24"><path d="M8 5v14M16 5v14"/></svg></button><span id="videoElapsed">0:00</span><input id="videoSeek" type="range" min="0" max="100" value="0" step="0.1" aria-label="Video position in Discord"><span id="videoDuration">0:00</span><small class="video-output-label">Audio in Discord</small></div></div><aside id="videoSidebar" class="video-sidebar" aria-label="Related videos and credits"></aside></div>
+    <div class="video-footer"><div class="video-meta"><strong id="videoTrackTitle"></strong><small id="videoTrackArtist"></small></div><button id="videoPrevious" class="icon-button" aria-label="Previous video"><svg viewBox="0 0 24 24"><path d="M5 4v16M19 5 8 12l11 7z"/></svg></button><button id="videoNext" class="icon-button" aria-label="Next video"><svg viewBox="0 0 24 24"><path d="M19 4v16M5 5l11 7-11 7z"/></svg></button><p id="videoStatus" role="status"></p><button id="videoRetry" class="pill-button" hidden>Try again</button></div>
+  </div></dialog>
+
+  <aside id="morePanel" class="more-panel glass" hidden>
+    <div class="drawer-head"><div><span class="eyebrow">PLAYER</span><strong>More</strong></div><button id="moreClose" class="icon-button subtle" aria-label="Close"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button></div>
+    <button data-view="library">Library <span id="favCount">0</span></button>
+    <button data-view="history">History <span id="historyCount">0</span></button>
+    <button data-view="discover">Discover <span>For you</span></button>
+    <button data-view="search">Search <span>Songs · albums · artists</span></button>
+    <button data-view="playlists">Playlists <span>Yours</span></button>
+    <button data-view="queue">Queue <span>Up next</span></button>
+    <button id="downloadOpen">Download audio <span>MP3</span></button>
+    <button data-action="clear">Clear upcoming</button>
+    <button data-action="stop" class="danger">Stop playback</button>
+    <div class="sync-row">
+      <div><span>Lyrics timing</span><output id="lyricsAdvanceValue"></output></div>
+      <input id="lyricsAdvance" type="range" min="-3000" max="3000" step="25" value="0">
+      <small>Fine tune this song in your browser. Positive = lyrics appear earlier.</small>
+    </div>
+  </aside>
+
+  <dialog id="downloadDialog" class="download-dialog glass">
+    <form method="dialog"><button class="icon-button subtle close-dialog" aria-label="Close"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button></form>
+    <span class="eyebrow">PRIVATE DOWNLOAD</span><h2>Download audio</h2><p>Paste a supported music URL. YouTube, Spotify tracks, SoundCloud and other yt-dlp supported sources are converted to a high-quality MP3.</p>
+    <input id="downloadUrl" type="url" inputmode="url" autocomplete="off" spellcheck="false" placeholder="https://www.youtube.com/watch?v=...">
+    <button id="downloadSubmit" class="download-button"><span>Download MP3</span></button>
+    <div class="download-progress" aria-hidden="true"><i id="downloadProgress"></i></div>
+    <div id="downloadStatus" class="download-status" role="status"></div>
+  </dialog>
+
+  <dialog id="playlistDialog" class="download-dialog glass">
+    <form method="dialog"><button class="icon-button subtle close-dialog" aria-label="Close"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button></form>
+    <span class="eyebrow">YOUR COLLECTION</span><h2 id="playlistDialogTitle">Playlist</h2>
+    <p id="playlistDialogCopy">Create a space for songs you love.</p>
+    <input id="playlistName" type="text" maxlength="80" autocomplete="off" placeholder="Playlist name">
+    <select id="playlistSelect" hidden aria-label="Choose playlist"></select>
+    <button id="playlistSubmit" class="download-button">Save</button>
+  </dialog>
+  <dialog id="confirmDialog" class="download-dialog glass">
+    <span class="eyebrow">PLEASE CONFIRM</span><h2 id="confirmTitle">Remove item?</h2><p id="confirmCopy">This change only affects your library.</p>
+    <div class="dialog-actions"><button id="confirmCancel" class="mini-action">Cancel</button><button id="confirmSubmit" class="mini-action danger-button">Remove</button></div>
+  </dialog>
+
+  <div id="toast" class="toast" hidden></div>
+  <script src="/coverPhysics.js"></script>
+  <script src="/hls.min.js"></script>
+  <script src="/artwork.js"></script>
+  <script src="/app.js"></script>
+  <script src="/video-sync.js"></script>
+  <script src="/platform.js"></script>
+</body>
+</html>

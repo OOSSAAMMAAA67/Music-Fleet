@@ -1,0 +1,65 @@
+{
+  "name": "music-by-a",
+  "version": "8.5.13",
+  "description": "Shared Discord music fleet: 1–100+ independent bot players, persistent owner placement, indexed user libraries and one web platform",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "setup:ytdlp": "node scripts/setup-ytdlp.js",
+    "setup:cloudflared": "node scripts/setup-cloudflared.js",
+    "check:deps": "node scripts/dependency-preflight.js",
+    "check:voice": "node -e \"process.env.FFMPEG_PATH=require('./utils/ffmpegResolver').resolveFfmpegPath(); const {generateDependencyReport}=require('@discordjs/voice'); console.log(generateDependencyReport())\"",
+    "check:ytdlp": "node -e \"require('./utils/ytDlpProvider').checkAvailability().then(x=>console.log('[OK] yt-dlp:', x)).catch(e=>{console.error(e.message); process.exit(1)})\"",
+    "diagnose": "npm run check:deps && npm run check:voice && npm run check:ffmpeg && npm run check:ytdlp",
+    "voice:debug": "node scripts/voice-debug.js",
+    "check:ffmpeg": "node scripts/check-ffmpeg.js",
+    "backup": "node scripts/fleet-backup.js",
+    "check:config": "node scripts/fleet-check.js",
+    "migrate:storage": "node scripts/fleet-storage-migrate.js",
+    "pm2:check": "node scripts/pm2-preflight.js",
+    "pm2:start": "node scripts/pm2-control.js start",
+    "pm2:restart": "node scripts/pm2-control.js restart",
+    "pm2:stop": "node scripts/pm2-control.js stop"
+  },
+  "engines": {
+    "node": "^22.16.0 || >=24.0.0"
+  },
+  "dependencies": {
+    "@discordjs/voice": "0.19.2",
+    "@ffmpeg-installer/ffmpeg": "1.1.0",
+    "aromanize": "^0.1.5",
+    "chalk": "4.1.2",
+    "discord.js": "14.27.0",
+    "hls.js": "^1.7.3",
+    "kuromoji": "^0.1.2",
+    "libsodium-wrappers": "0.8.4",
+    "opusscript": "0.0.8",
+    "pinyin-pro": "^3.29.4",
+    "prism-media": "1.3.5",
+    "sharp": "0.35.5",
+    "tweetnacl": "1.0.3",
+    "pm2": "7.0.4"
+  },
+  "keywords": [
+    "discord",
+    "music",
+    "bot",
+    "arabic",
+    "youtube",
+    "yt-dlp",
+    "soundcloud",
+    "spotify",
+    "tidal"
+  ],
+  "author": "! A",
+  "license": "MIT",
+  "optionalDependencies": {
+    "@discordjs/opus": "0.10.0",
+    "bufferutil": "4.1.0",
+    "ffmpeg-static": "5.3.0"
+  },
+  "devDependencies": {
+    "playwright": "1.62.1",
+    "pngjs": "7.0.0"
+  }
+}

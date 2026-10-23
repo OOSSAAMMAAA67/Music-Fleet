@@ -1,0 +1,18 @@
+[Unit]
+Description=Music By A shared Discord music fleet
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=music
+WorkingDirectory=/opt/music-fleet
+ExecStart=/usr/bin/node --max-old-space-size=7168 /opt/music-fleet/index.js
+Restart=on-failure
+RestartSec=5
+TimeoutStopSec=40
+KillMode=control-group
+UMask=0077
+
+[Install]
+WantedBy=multi-user.target
